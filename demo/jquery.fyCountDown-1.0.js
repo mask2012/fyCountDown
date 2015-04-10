@@ -28,7 +28,23 @@
 		},options);
 
 
-		var t1,container=this;
+		var t1,secondsLeft,
+			container=this;
+
+		this.restart=function(){
+			clearInterval(t1);
+			container.removeClass(opts.notyClass);
+			startCountDown(opts.countdownSeconds);
+		}
+
+		this.pause=function(){
+			clearInterval(t1);
+		}
+
+		this.resume=function(){
+			startCountDown(secondsLeft+1);
+		}
+
 		var startCountDown= function(intDiff) {
 		    clearInterval(t1);
 		    t1 = window.setInterval(countDown, 1000);
@@ -89,11 +105,12 @@
 		        	container.html('');
 	        		container.append('<span class=\"countdown_second\">'+intDiff+'</span>'+'<span class=\"countdown_unit countdown_unit_second\">'+opts.unit.s+'</span>');
 		        }else{
-		        	console.info('setting alwaysShown given wrong!');
+		        	console.error('setting alwaysShown given wrong!');
 		        	clearInterval(t1);
 		        }
 
 		        intDiff--;
+		        secondsLeft=intDiff;
 
 		        //add noty class
 		        if(opts.notySeconds!=0 && !isNaN(opts.notySeconds)){
@@ -101,7 +118,7 @@
 			            container.addClass(opts.notyClass);
 			        }
 		        }else if(isNaN(opts.notySeconds)){
-		        	console.info('notySeconds given wrong!');
+		        	console.error('notySeconds given wrong!');
 		        	clearInterval(t1);
 		        }
 
@@ -112,10 +129,12 @@
 		            container.removeClass(opts.notyClass);
 		        }
 		    }
+
+
 		}
 		startCountDown(opts.countdownSeconds);
 
-
+		return this;
 	}
 })(jQuery);
 

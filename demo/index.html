@@ -24,6 +24,10 @@
 
     
     <div class="counter">
+
+      <button id="btn-restart">重来</button>
+      <button id="btn-pause">暂停</button>
+      <button id="btn-resume">继续</button>
       <div id="count-down1" class="countdown"></div>
       <p>无alwaysShown参数，最大单位为0后不再显示; addZero:true会在分和秒前加零</p>
       <p>notySeconds:60  在倒计时剩60秒时为倒计时容器div添加class="notifing",notifing为红色</p>
@@ -137,7 +141,20 @@ $('#count-down6').fyCountDown({
       $('#btn-refresh').click(function() {
         window.location.reload()
       });
-      $('#count-down1').fyCountDown({
+
+      $('#btn-restart').click(function() {
+        a.restart();
+      });
+
+      $('#btn-pause').click(function() {
+        a.pause();
+      });
+
+      $('#btn-resume').click(function() {
+        a.resume();
+      });
+
+      var a = $('#count-down1').fyCountDown({
         countdownSeconds: 65,
         // alwaysShown:'m',
         addZero:true,
